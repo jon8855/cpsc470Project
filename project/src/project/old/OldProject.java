@@ -7,6 +7,7 @@
 package project.old;
 
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * A program that can be used by students to test their Player algorithms against a randomly dealt
@@ -18,22 +19,30 @@ public class OldProject {
 	/**
 	 * @param args - not used
 	 */
+	private static boolean playAgain = true;
+	private static Scanner userIn = new Scanner(System.in);
+	private static SamplePlayer player1 = new SamplePlayer(100);
+
 	public static void main(String[] args) {
-		// create and initialize player
-		SamplePlayer player1 = new SamplePlayer(); // change this to your class name like YourLastNamePlayer
-		int bank1 = 100;
-		
+		 // change this to your class name like YourLastNamePlayer
+		while (playAgain) {
+			run();
+		}
+	}
+
+	private static void run() {
+
 		// generate a random list of cards for a sample deck of 20
 		int shoeSize = 20;
 		int numCardsLeft = shoeSize;
 		String[] deck = createNewDeck(shoeSize);
 		String[] playedCards = new String[shoeSize];
-		
+
 		// place bets
-		int bet1 = player1.placeBet(bank1, playedCards, numCardsLeft);
-		System.out.println("Player Bank = " + bank1);
+		int bet1 = player1.placeBet(player1.getBank(), playedCards, numCardsLeft);
+		System.out.println("Player Bank = " + player1.getBank());
 		System.out.println("Player bets " + bet1 + "\n==========");
-		
+
 		//deal initial cards
 		String[] playerCards = createEmptyHand(5);
 		String[] dealerCards = createEmptyHand(5);
@@ -48,7 +57,7 @@ public class OldProject {
 		numCardsLeft -= 4;
 		dealerUpCard = dealerCards[1];
 		nextShoeIndex = 4;
-		
+
 		// player's hand
 		boolean doesPlayerHit = true;
 		while (doesPlayerHit) {
@@ -64,7 +73,7 @@ public class OldProject {
 			else
 				System.out.println("Player stands.");
 		}
-		
+
 		// dealer's hand
 		boolean doesDealerHit = true;
 		while (doesDealerHit) {
@@ -85,12 +94,14 @@ public class OldProject {
 		int playerPoints = BlackjackRules.countPoints(playerCards);
 		System.out.println("==========\nDealer has: " + dealerPoints);
 		System.out.println("Player has: " + playerPoints);
-		
-		// figure out winner - this is not correct for all cases, but it is close enough to test with		
-		if (dealerPoints > playerPoints && dealerPoints < 22 
+
+		// figure out winner - this is not correct for all cases, but it is close enough to test with
+		boolean wonHand;
+		if (dealerPoints > playerPoints && dealerPoints < 22
 				|| playerPoints > 21) {
 			System.out.println("Player lost!");
-			bank1-=bet1;
+			wonHand = false;
+			player1.modifyBank(wonHand, bet1);
 		} else if (dealerPoints == 21) {// check dealer blackjack
 			if (dealerCards[2]=="0") {
 				if (playerPoints == 21 && playerCards[2]=="0") {
@@ -98,22 +109,28 @@ public class OldProject {
 				}
 				else {
 					System.out.println("Dealer has Blackjack!!!");
-					bank1-=bet1;
+					player1.modifyBank(false, bet1);
 				}
 			} else if (playerPoints == dealerPoints){
 				System.out.println("Push game!");
 			}
 		} else if(playerPoints == 21 && playerCards[2]=="0") { // check player blackjack
 			System.out.println("Player has Blackjack!!!");
-			bank1+= 1.5*bet1;
+			player1.modifyBank(true, (int) 1.5*bet1);
 		} else if (playerPoints == dealerPoints){
 			System.out.println("Push game!");
 		} else {
 			System.out.println("Player won!");
-			bank1+= bet1;
+			player1.modifyBank(true, bet1);
 		}
-		System.out.println("Player bank = " + bank1);
-		
+		System.out.println("Player bank = " + player1.getBank());
+
+		System.out.println("Play again? [Y/N]");
+		if ((userIn.next().equals("Y") || (userIn.next().equals("y")))) {
+			playAgain = true;
+		} else {
+			playAgain = false;
+		}
 	}
 
 	/**
