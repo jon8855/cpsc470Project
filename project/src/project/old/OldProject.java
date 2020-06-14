@@ -21,7 +21,8 @@ public class OldProject {
 	 */
 	private static boolean playAgain = true;
 	private static Scanner userIn = new Scanner(System.in);
-	private static SamplePlayer player1 = new SamplePlayer(100);
+	//this is where we implement the factory pattern
+	private static SamplePlayer player1 = new LambertsonPlayer(100);
 
 	public static void main(String[] args) {
 		 // change this to your class name like YourLastNamePlayer

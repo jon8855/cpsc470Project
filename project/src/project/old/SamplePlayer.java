@@ -1,49 +1,25 @@
 /**
- * CPSC 110
- * Mar 1, 2017
- * I pledge
- * @author George
+ * @author DTL
  */
 //package project.old;
 
 /**
  *
  */
-public class SamplePlayer {
+public interface SamplePlayer {
 
-	private int bank;
+	//public int bank;
 
-	public SamplePlayer(int bank) {
-		this.bank = bank;
-	}
+	//public SamplePlayer(int bank);
 
-	public boolean doesPlayerHit(String[] playerCards, String dealerUpCard) {
+	public String getPlayerName();
 
-		int points = BlackjackRules.countPoints(playerCards);
-		// implement your strategy for deciding whether to hit or not
+	public boolean doesPlayerHit(String[] playerCards, String dealerUpCard);
 
-		return false;
-	}
+	public int placeBet(int bank, String[] playedCards, int numCardsLeft);
 
-	public int placeBet(int bank, String[] playedCards, int numCardsLeft) {
-		int bet = 10;
-		// change your bet amount here if you wish
-				
-		if (bet>bank)
-			bet = bank;
-		return bet;
-	}
+	public int getBank() ;
 
-	public int getBank() {
-		return bank;
-	}
-
-	public void modifyBank(boolean win, int amount) {
-		if (win) {
-			this.bank = this.bank + amount;
-		} else {
-			this.bank = this.bank - amount;
-		}
-	}
+	public void modifyBank(boolean win, int amount);
 
 }
