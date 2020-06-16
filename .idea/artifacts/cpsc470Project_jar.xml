@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="cpsc470Project:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/cpsc470Project_jar</output-path>
+    <root id="archive" name="cpsc470Project.jar">
+      <element id="module-output" name="cpsc470Project" />
+    </root>
+  </artifact>
+</component>
