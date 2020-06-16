@@ -35,6 +35,7 @@ public class LambertsonPlayer implements SamplePlayer, PlayerMindState, Serializ
 	}
 
 	public int placeBet(int bank, String[] playedCards, int numCardsLeft) {
+	    isFeelingLucky();
 		int bet;
 		if (isFeelingLucky) {
 			//goes for a big bet if they're on a hot streak
@@ -57,6 +58,7 @@ public class LambertsonPlayer implements SamplePlayer, PlayerMindState, Serializ
 		if (win) {
 			this.consecutiveWins += 1;
 			this.bank = this.bank + amount;
+
 		} else {
 			this.consecutiveWins = 0;
 			this.bank = this.bank - amount;
@@ -69,6 +71,7 @@ public class LambertsonPlayer implements SamplePlayer, PlayerMindState, Serializ
 		// more than 2 in a row, therefore I would be feeling lucky
 		if (this.consecutiveWins >= 2) {
 			this.isFeelingLucky = true;
+            System.out.println("David is feeling lucky!!");
 		}
 		else {
 			this.isFeelingLucky = false;

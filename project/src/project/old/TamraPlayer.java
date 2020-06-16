@@ -1,5 +1,6 @@
 package project.old;
 
+import javax.sound.midi.Soundbank;
 import java.io.Serializable;
 
 /**
@@ -48,6 +49,7 @@ public class TamraPlayer implements SamplePlayer, PlayerMindState, Serializable{
 
     @Override
     public int placeBet(int bank, String[] playedCards, int numCardsLeft) {
+        isFeelingLucky();
         int bet;
         if (isFeelingLucky) {
             //goes for a big bet if they're on a hot streak
@@ -71,6 +73,7 @@ public class TamraPlayer implements SamplePlayer, PlayerMindState, Serializable{
         if (win) {
             this.consecutiveWins += 1;
             this.bank = this.bank + amount;
+
         } else {
             this.consecutiveWins = 0;
             this.bank = this.bank - amount;
@@ -83,6 +86,7 @@ public class TamraPlayer implements SamplePlayer, PlayerMindState, Serializable{
         // more than 2 in a row, therefore I would be feeling lucky
         if (this.consecutiveWins >= 2) {
             this.isFeelingLucky = true;
+            System.out.println("Tamara is feeling lucky!!");
         }
         else {
             this.isFeelingLucky = false;
