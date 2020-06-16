@@ -16,7 +16,7 @@ import java.util.Scanner;
  */
 public class OldProject {
 	public static void main(String[] args) {
-		BlackJackSim game = new BlackJackSim();
+		BlackJackSim game = BlackJackSim.getInstance();
 		while (game.playAgain()) {
 			game.run();
 		}

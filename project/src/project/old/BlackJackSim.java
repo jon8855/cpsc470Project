@@ -11,7 +11,7 @@ import java.util.Scanner;
  * hand. The second line of the main() method must be changed by replacing "SamplePlayer" with the name of
  * the student's file (usually StudentLastNamePlayer)
  * 
- * This is the facade for the main class OldProject
+ * This is the facade and the singleton for the main class OldProject
  * 
  */
 public class BlackJackSim {
@@ -23,12 +23,22 @@ public class BlackJackSim {
 	private Scanner userIn; // = new Scanner(System.in);
 	//this is where we implement the factory pattern
     private SamplePlayer player1; // = new LambertsonPlayer(100);
+    private SamplePlayer player2;
+    private static BlackJackSim instance;
     
-    public BlackJackSim(){
+    private BlackJackSim(){
         this.playAgain = true;
         this.userIn = new Scanner(System.in);
-        //SamplePlayer[] players = getPlayers(); //socket stuff
         this.player1 = new LambertsonPlayer(100); //temporary until we get the sockets running
+        //this.player1 = getPlayer();
+        //this.player2 = getPlayer();
+    }
+
+    public static synchronized BlackJackSim getInstance(){
+        if(instance == null){
+            instance = new BlackJackSim();
+        }
+        return instance;
     }
 
 	public void run() {
@@ -221,5 +231,9 @@ public class BlackJackSim {
     
     public boolean playAgain(){
         return this.playAgain;
+    }
+
+    private SamplePlayer getPlayer(){
+        return null;//do the socket stuff
     }
 }
