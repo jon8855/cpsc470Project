@@ -1,11 +1,8 @@
 /**
  * @author DTL
  */
-//package project.old;
+package project.old;
 
-/**
- *
- */
 public interface SamplePlayer {
 
 	//public int bank;

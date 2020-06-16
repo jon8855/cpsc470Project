@@ -1,7 +1,7 @@
 /**
  * @author DTL
  */
-//package project.old;
+package project.old;
 
 import java.util.Random;
 import java.util.Scanner;

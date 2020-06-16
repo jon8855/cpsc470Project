@@ -1,18 +1,17 @@
 /**
  * @author DTL
  */
-//package project.old;
+package project.old;
 
 import java.io.Serializable;
 
-public class LambertsonPlayer implements SamplePlayer, Serializable{
+public class LambertsonPlayer implements SamplePlayer, PlayerMindState, Serializable{
 
-    /**
-	 *
-	 */
 	private static final long serialVersionUID = 1L;
 	private int bank;
     private String name;
+	private int consecutiveWins;
+	private boolean isFeelingLucky;
 
 	public LambertsonPlayer(int bank) {
         this.bank = bank;
@@ -36,11 +35,17 @@ public class LambertsonPlayer implements SamplePlayer, Serializable{
 	}
 
 	public int placeBet(int bank, String[] playedCards, int numCardsLeft) {
-		int bet = 10;
+		int bet;
+		if (isFeelingLucky) {
+			//goes for a big bet if they're on a hot streak
+			bet = this.bank / 2;
+		} else {
+			bet = 10;
+		}
 		// change your bet amount here if you wish
 				
-		if (bet>bank)
-			bet = bank;
+		if (bet> this.bank)
+			bet = this.bank;
 		return bet;
 	}
 
@@ -50,10 +55,25 @@ public class LambertsonPlayer implements SamplePlayer, Serializable{
 
 	public void modifyBank(boolean win, int amount) {
 		if (win) {
+			this.consecutiveWins += 1;
 			this.bank = this.bank + amount;
 		} else {
+			this.consecutiveWins = 0;
 			this.bank = this.bank - amount;
 		}
+	}
+
+	//implements the State pattern, because this interface will influence how the object behaves
+	public boolean isFeelingLucky() {
+		//did 2 because it should be a rare occurrence to win
+		// more than 2 in a row, therefore I would be feeling lucky
+		if (this.consecutiveWins >= 2) {
+			this.isFeelingLucky = true;
+		}
+		else {
+			this.isFeelingLucky = false;
+		}
+		return this.isFeelingLucky;
 	}
 
 }

@@ -1,5 +1,5 @@
 
-//package project.old;
+package project.old;
 
 public class BlackjackRules {
 
