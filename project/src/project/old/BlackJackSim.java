@@ -1,7 +1,7 @@
 /**
  * @author DTL
  */
-package project.old;
+//package project.old;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -23,14 +23,14 @@ public class BlackJackSim {
 	private Scanner userIn; // = new Scanner(System.in);
 	//this is where we implement the factory pattern
     private SamplePlayer player1; // = new LambertsonPlayer(100);
-    private SamplePlayer player2;
+    private SamplePlayer player2; 
     private static BlackJackSim instance;
     
     private BlackJackSim(){
         this.playAgain = true;
         this.userIn = new Scanner(System.in);
-        this.player1 = new LambertsonPlayer(100); //temporary until we get the sockets running
-        //this.player1 = getPlayer();
+        //this.player1 = new LambertsonPlayer(100); //temporary until we get the sockets running
+        get2Players(); //gets the players for the game
         //this.player2 = getPlayer();
     }
 
@@ -233,7 +233,10 @@ public class BlackJackSim {
         return this.playAgain;
     }
 
-    private SamplePlayer getPlayer(){
-        return null;//do the socket stuff
-    }
+    private void get2Players(){
+		BlackJackServer server = new BlackJackServer();
+		this.player1 = server.getPlayerFromServer();
+		this.player2 = server.getPlayer2FromServer();
+	}
+	
 }

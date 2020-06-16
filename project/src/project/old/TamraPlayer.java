@@ -1,13 +1,21 @@
+import java.io.Serializable;
+
 /**
  * CPSC 470
  * June 2020
  * @author Tamra Arant
  */
 
-package project.old;
+//package project.old;
 
-public class TamraPlayer implements SamplePlayer {
+import java.io.Serializable;
 
+public class TamraPlayer implements SamplePlayer, Serializable{
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5950169519310163575L;
     private int bank;
     private String name;
 

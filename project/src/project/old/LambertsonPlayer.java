@@ -1,14 +1,17 @@
 /**
  * @author DTL
  */
-package project.old;
+//package project.old;
 
-/**
- *
- */
-public class LambertsonPlayer implements SamplePlayer{
+import java.io.Serializable;
 
-    private int bank;
+public class LambertsonPlayer implements SamplePlayer, Serializable{
+
+    /**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+	private int bank;
     private String name;
 
 	public LambertsonPlayer(int bank) {
